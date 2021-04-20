@@ -3,14 +3,14 @@ package io.github.scifi9902.bria;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.LongSerializationPolicy;
-import io.github.scifi9902.bria.credits.CreditHandler;
-import io.github.scifi9902.bria.credits.command.PayCommand;
-import io.github.scifi9902.bria.credits.command.SetCreditsCommand;
+import io.github.scifi9902.bria.command.PayCommand;
+import io.github.scifi9902.bria.command.SetCreditsCommand;
 import io.github.scifi9902.bria.database.MongoHandler;
 import io.github.scifi9902.bria.handlers.HandlerManager;
 import io.github.scifi9902.bria.handlers.IHandler;
 import io.github.scifi9902.bria.kit.KitHandler;
 import io.github.scifi9902.bria.kit.listener.KitListener;
+import io.github.scifi9902.bria.kit.listener.SoupListener;
 import io.github.scifi9902.bria.profiles.ProfileHandler;
 import io.github.scifi9902.bria.profiles.ProfileListener;
 import io.github.scifi9902.bria.scoreboard.ScoreboardAdapter;
@@ -47,7 +47,6 @@ public class BriaPlugin extends JavaPlugin {
 
         this.handlerManager.registerHandler(new MongoHandler(this.config.getString("mongo.host"), this.config.getInt("mongo.port"), this.config.getBoolean("mongo.auth"), this.config.getString("mongo.username"), this.config.getString("mongo.password"), this.config.getString("mongo.database")));
         this.handlerManager.registerHandler(new ProfileHandler(this));
-        this.handlerManager.registerHandler(new CreditHandler(this));
         this.handlerManager.registerHandler(new KitHandler());
 
         new Assemble(this, new ScoreboardAdapter(this));
@@ -65,6 +64,7 @@ public class BriaPlugin extends JavaPlugin {
         PluginManager manager = this.getServer().getPluginManager();
         manager.registerEvents(new ProfileListener(this), this);
         manager.registerEvents(new KitListener(this), this);
+        manager.registerEvents(new SoupListener(), this);
     }
 
     public void onDisable() {

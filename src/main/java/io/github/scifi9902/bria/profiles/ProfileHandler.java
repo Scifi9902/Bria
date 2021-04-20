@@ -6,17 +6,14 @@ import io.github.scifi9902.bria.handlers.IHandler;
 import io.github.scifi9902.bria.profiles.repository.ProfileRepository;
 import lombok.Getter;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Getter
 public class ProfileHandler implements IHandler {
 
     private final BriaPlugin instance;
 
-    private final List<Profile> profiles = new ArrayList<>();
+    private final Map<UUID,Profile> profiles = new HashMap<>();
 
     private final ProfileRepository profileRepository;
 
@@ -35,10 +32,8 @@ public class ProfileHandler implements IHandler {
      * @return optional containing the profile
      */
     public Optional<Profile> getProfile(UUID uuid) {
-        for (Profile profile : this.profiles) {
-            if (profile.getUniqueId().equals(uuid)) {
-                return Optional.of(profile);
-            }
+        if (this.profiles.containsKey(uuid)) {
+            return Optional.of(this.profiles.get(uuid));
         }
         return Optional.empty();
     }
@@ -46,7 +41,9 @@ public class ProfileHandler implements IHandler {
 
     @Override
     public void unload() {
-        for (Profile profile : this.profiles) {
+        //Loop through all profiles
+        for (Profile profile : this.profiles.values()) {
+            //Save the profile to the database
             this.profileRepository.saveData(profile.getUniqueId().toString(), profile);
         }
     }

@@ -9,8 +9,6 @@ import java.util.*;
 @Getter
 public class KitHandler implements IHandler {
 
-    private final Map<UUID, Kit> equiptMap = new HashMap<>();
-
     private final List<Kit> kits = new ArrayList<>();
 
     public Optional<Kit> getKit(String name) {

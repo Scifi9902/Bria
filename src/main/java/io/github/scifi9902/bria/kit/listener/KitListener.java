@@ -68,7 +68,6 @@ public class KitListener implements Listener {
         Kit kit = optional.get();
 
         kit.applyKit(player);
-        kitHandler.getEquiptMap().put(player.getUniqueId(), kit);
     }
 
     @EventHandler
@@ -76,19 +75,6 @@ public class KitListener implements Listener {
         if (event.getLine(0).equalsIgnoreCase("&9[Kit]") && event.getPlayer().hasPermission("bria.sign.color")) {
             event.setLine(0, CC.chat("&9[Kit]"));
         }
-    }
-
-    @EventHandler
-    public void onSoup(PlayerInteractEvent event) {
-        final Player player = event.getPlayer();
-        final ItemStack stack = player.getItemInHand();
-
-        if (!event.getAction().name().contains("RIGHT") || stack == null || !stack.getType().equals(Material.MUSHROOM_SOUP) || player.getMaxHealth() == player.getHealth()) {
-            return;
-        }
-
-        player.getItemInHand().setType(Material.BOWL);
-        player.setHealth(Math.min(20.0F, player.getHealth() + 6.5F));
     }
 
 }

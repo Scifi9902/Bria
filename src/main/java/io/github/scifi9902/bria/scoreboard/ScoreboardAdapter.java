@@ -36,17 +36,14 @@ public class ScoreboardAdapter implements AssembleAdapter {
 
         if (optional.isPresent()) {
             Profile profile = optional.get();
-
             lines.add("&4&lKills: &f" + profile.getKills());
             lines.add("&4&lDeaths: &f" + profile.getDeaths());
             lines.add("&4&lCredits: &f" + profile.getCredits());
 
         }
 
-        if (!lines.isEmpty()) {
-            lines.add(0,CC.chat("&8&m" + StringUtils.repeat("-", 32)));
-            lines.add(lines.size(), CC.chat("&8&m" + StringUtils.repeat("-", 32)));
-        }
+        lines.add(0, CC.chat("&8&m" + StringUtils.repeat("-", 32)));
+        lines.add(lines.size(), CC.chat("&8&m" + StringUtils.repeat("-", 32)));
 
         return lines;
     }

@@ -43,14 +43,14 @@ public class ProfileListener implements Listener {
             //Check if the found profile is null
             if (profile != null) {
                 //add it to the profiles collection if its not
-                profileHandler.getProfiles().add((Profile) profile);
+                profileHandler.getProfiles().put(uuid,(Profile) profile);
             }
 
             else {
                 //Define a new Profile
                 Profile newProfile = new Profile(uuid);
                 //add into the arraylist
-                profileHandler.getProfiles().add(newProfile);
+                profileHandler.getProfiles().put(uuid, newProfile);
             }
             return profile;
         });
@@ -76,7 +76,7 @@ public class ProfileListener implements Listener {
             Profile profile = optional.get();
 
             //Remove the profile from the profiles list
-            profileHandler.getProfiles().remove(profile);
+            profileHandler.getProfiles().remove(player.getUniqueId());
 
             //Save it to mongo
             profileHandler.getProfileRepository().saveData(player.getUniqueId().toString(), profile);

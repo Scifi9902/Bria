@@ -12,7 +12,8 @@ import org.bson.Document;
 import java.lang.reflect.Type;
 import java.util.concurrent.CompletableFuture;
 
-@Getter @Setter
+@Getter
+@Setter
 public abstract class MongoRepository {
 
     private MongoCollection collection;
@@ -27,7 +28,7 @@ public abstract class MongoRepository {
     }
 
     /**
-     * @param key key of the data stored in the database
+     * @param key  key of the data stored in the database
      * @param type type of the data
      * @return the data found in the database
      */
@@ -44,11 +45,10 @@ public abstract class MongoRepository {
     }
 
     /**
-     * @param t   type of data to be passed in
      * @param <T> type of data to be returned
-     * @return the data that was saved
+     * @param t   type of data to be passed in
      */
-    public <T> CompletableFuture<T> saveData(String id, T t) {
-        return (CompletableFuture<T>) CompletableFuture.supplyAsync(() -> this.collection.replaceOne(Filters.eq("_id", id), Document.parse(instance.getGson().toJson(t)), new UpdateOptions().upsert(true)));
+    public <T> void saveData(String id, T t) {
+        CompletableFuture.supplyAsync(() -> this.collection.replaceOne(Filters.eq("_id", id), Document.parse(instance.getGson().toJson(t)), new UpdateOptions().upsert(true)));
     }
 }

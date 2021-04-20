@@ -6,7 +6,8 @@ import lombok.Setter;
 
 import java.util.UUID;
 
-@Getter @Setter
+@Getter
+@Setter
 public class Profile {
 
     @SerializedName("_id")
@@ -25,5 +26,19 @@ public class Profile {
      */
     public Profile(UUID uniqueId) {
         this.uniqueId = uniqueId;
+    }
+
+    /**
+     * @param amount amount to subtract from balance
+     */
+    public void subtractCredits(int amount) {
+        this.setCredits(this.credits - amount);
+    }
+
+    /**
+     * @param amount amount to add to credit balance
+     */
+    public void addCredits(int amount) {
+        this.setCredits(this.credits + amount);
     }
 }

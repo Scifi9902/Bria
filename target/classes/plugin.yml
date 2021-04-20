@@ -1,0 +1,5 @@
+name: Bria
+version: 1.0-SNAPSHOT
+author: "Scifi9902"
+description: Open-source KitPvP core
+main: io.github.scifi9902.bria.BriaPlugin
